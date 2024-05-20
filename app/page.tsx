@@ -1,12 +1,14 @@
-import MicrophoneComponent from '@/components/Speech/Microphone'
-import React from 'react'
+import ChatBox from "@/components/ChatBox";
+import Navbar from "@/components/Navbar";
+import React from "react";
 
 const page = () => {
   return (
     <div>
-      <MicrophoneComponent/>
+      <Navbar />
+      <ChatBox />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
