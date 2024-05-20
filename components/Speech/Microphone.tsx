@@ -3,11 +3,17 @@
 import axios from "axios";
 // Import necessary modules and components
 import { useEffect, useState, useRef } from "react";
+import BubleChat from "./bubleChat";
 
 declare global {
   interface Window {
     webkitSpeechRecognition: any;
   }
+}
+
+type AiResponse = {
+  correct:string,
+  response:string
 }
 
 
@@ -16,7 +22,9 @@ export default function MicrophoneComponent() {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingComplete, setRecordingComplete] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [airesponse, setResponse] = useState("");
+  const [airesponse, setResponse] = useState<AiResponse>({correct:"",response:""});
+  const [chat,setChat]=useState<AiResponse[]>([])
+
 
   // Reference to store the SpeechRecognition instance
   const recognitionRef = useRef<any>(null);
@@ -62,7 +70,7 @@ export default function MicrophoneComponent() {
       })
 
       setResponse(res.data)
-
+      setChat([...chat, res.data])
       setRecordingComplete(true);
     }
   };
@@ -105,7 +113,7 @@ export default function MicrophoneComponent() {
               </div>
             )}
 
-            <h1>{airesponse}</h1>
+             <BubleChat Airesponse={chat}/>
            
           </div>
         )}
